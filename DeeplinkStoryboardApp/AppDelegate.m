@@ -18,23 +18,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     return YES;
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    
     if([[url host] isEqualToString:@"deeplink"]) {
         if([[url path] isEqualToString:@"/page1"]) {
-            // Insantiate view controller from storyboard ID and push onto navigation controller stack
+            // Insantiate a view controller by its storyboard ID and push it onto a navigation controller stack
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             UIViewController *page1ViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"page1"];
             UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
             [navController pushViewController:page1ViewController animated:YES];
             
         } else if ([[url path] isEqualToString:@"/page2"]) {
-            // Perform segue with identifier
+            // Alternatively perform a segue with its identifier
             [self.window.rootViewController performSegueWithIdentifier:@"page2" sender:self];
             
         } else {
